@@ -1,0 +1,43 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	background-color: rgb(240, 236, 223);
+}
+
+header {
+	width: 100%;
+}
+nav {
+	width: 100%;
+}
+.progressor {
+	width: 1000px;
+	height: 20px;
+	background: grey;
+}
+
+.progressor-progress {
+	background: black;
+}
+
+.modal-dialog {
+	position: absolute;
+	top: 50px;
+	right: 100px;
+	bottom: 0;
+	left: 0;
+	z-index: 10040;
+	overflow: auto;
+	overflow-y: auto;
+}
+
+button:disabled {
+	cursor: auto;
+}
