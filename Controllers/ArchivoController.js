@@ -3,8 +3,9 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const bodyParser = require("body-parser");
-const cloudUpload = require("./helpers/gcp-helper");
-
+//const cloudUpload = require("./helpers/gcp-helper");
+const sysUploader = require("./helpers/sys_gcp_upload");
+const speechHelper = require("./helpers/google-speech-helper");
 let jsonParser = bodyParser.json();
 
 const almacena = multer.diskStorage({
@@ -47,15 +48,20 @@ router.post("/carga", (req, res) => {
 		} else if (err) {
 			res.json({ message: "Ha oocurrido un error" });
 		} else {
+			//cloudUpload.uploadFile(req.file.filename).catch(console.error);
+			sysUploader.cliUpload(req.file.filename);
 			res.json({ message: req.file.filename });
 		}
 	});
 });
 
 router.post("/mandaTranscripcion", jsonParser, (req, res) => {
-	console.log("On Server data: " + req.body.filename);
-	cloudUpload.uploadFile(req.body.filename).catch(console.error);
-	res.json({ message: "Exito post" });
+	//const {filename} = req.body;
+	//console.log("On Server data: " + req.body.filename);
+	console.log(req.body.filename);
+	speechHelper
+		.transcribe(req.body.filename)
+		.then((str) => res.json({ message: str }));
 });
 
 module.exports = router;
