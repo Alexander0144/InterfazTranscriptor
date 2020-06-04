@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname, "/Public/Views/Index.html"));
 });
 
+app.get("/partial", (req, res) => {
+	res.sendFile(path.join(__dirname, "/Public/Views/partial.htm"));
+});
+
 app.get("/favicon.ico", (req, res) => {
 	res.sendFile(path.join(__dirname, "/Public/favicon.ico"));
 });

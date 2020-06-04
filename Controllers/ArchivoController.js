@@ -64,4 +64,6 @@ router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 		.then((str) => res.json({ message: str }));
 });
 
+router.get("/descargarTranscripcion", jsonParser, (req, res) => {});
+
 module.exports = router;

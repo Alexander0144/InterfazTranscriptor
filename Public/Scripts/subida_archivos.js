@@ -2,6 +2,22 @@
 	let currentFile = "";
 	let uploadedFiles = [];
 
+	function ajaxChangeView(content) {
+		$.ajax({
+			type: "GET",
+			url: "/partial",
+			dataType: "HTML",
+			success: function (res) {
+				//#appBody
+				$("#appBody").html(res);
+				//console.log(res);
+			},
+			error: function () {
+				console.log("error view");
+			},
+		});
+	}
+
 	function ajaxMandarTranscripcion(url, datos) {
 		$.ajax({
 			type: "POST",
@@ -9,6 +25,7 @@
 			data: datos,
 			dataType: "json",
 			success: function (response) {
+				$("#txtTranscript").text(response.message);
 				console.log(response.message);
 			},
 			error: function () {
@@ -50,6 +67,9 @@
 	}
 
 	function setEvents() {
+		$("#testBtn").click(() => {
+			ajaxChangeView();
+		});
 		$("#audioUpload").change(function () {
 			let filename = $("#archivo")[0].files[0].name;
 			console.log(filename);
@@ -63,6 +83,7 @@
 					btnTranscribir({ isActive: false });
 				},
 				success: function (res) {
+					$("#modalArchivo").modal("hide");
 					console.log(res.message);
 					currentFile = res.message;
 					uploadedFiles[uploadedFiles.length] = currentFile;
@@ -79,9 +100,12 @@
 
 		$("#btnTranscribir").click(function (e) {
 			e.preventDefault();
-			ajaxMandarTranscripcion("archivo/mandaTranscripcion", {
+			ajaxChangeView();
+			let text = ajaxMandarTranscripcion("archivo/mandaTranscripcion", {
 				filename: currentFile,
 			});
+			"#btnExportar".click(() => {});
+			console.log(text);
 		});
 	}
 

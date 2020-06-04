@@ -12,7 +12,8 @@ function cliUpload(filename) {
 				return `stderr: ${stderr}`;
 			}
 			console.log(`stdout: ${stdout}`);
-			return "success";
+			console.log("Archivo subido a: gs://bucket-audio-test");
+			return "success GCP upload";
 		}
 	);
 }

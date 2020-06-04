@@ -24,7 +24,13 @@ nav {
 }
 
 .progressor-progress {
-	background: black;
+	background: rgb(57, 57, 65);
+	background: linear-gradient(
+		90deg,
+		rgba(57, 57, 65, 1) 0%,
+		rgba(9, 9, 121, 1) 53%,
+		rgba(0, 101, 247, 1) 100%
+	);
 }
 
 .modal-dialog {
