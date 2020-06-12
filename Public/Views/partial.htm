@@ -1,12 +1,31 @@
 <div class="container mt-2">
 	<h4 class="display-4 text-dark"><strong>Transcriptor</strong></h4>
+
+	<div class="container">
+		<h5><span class="badge badge-success">Sin Editar</span></h5>
+		<table
+			id="tblTranscript"
+			class="table table-light table-striped table-bordered table-hover"
+		>
+			<thead>
+				<tr>
+					<th scope="col">
+						Seccion
+					</th>
+					<th scope="col">
+						Transcripcion
+					</th>
+					<th scope="col">
+						Timestamp
+					</th>
+				</tr>
+			</thead>
+			<tbody></tbody>
+		</table>
+	</div>
+
+	<br />
+	<br />
+
+	<button id="btnExportar" class="btn btn-primary">Exportar</button>
 </div>
-
-<textarea name="textarea" id="txtTranscript" cols="30" rows="10">
-Esperando transcripcion...</textarea
->
-
-<br />
-<br />
-
-<button id="btnExportar" class="btn btn-primary">Exportar</button>

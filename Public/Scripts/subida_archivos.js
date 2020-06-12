@@ -1,6 +1,31 @@
 (function ($) {
 	let currentFile = "";
 	let uploadedFiles = [];
+	let table = null;
+	let separationOption = 0;
+
+	function groupTimestamps(timeArray, groupEvery) {
+		let retArray = [];
+		let timeRef = 0.0;
+		let sentance = "";
+		let cont = 0;
+
+		for (let i = 0; i < timeArray.length; i++) {
+			sentance += " " + timeArray[i].word;
+			if (i % groupEvery == 0) {
+				retArray[cont] = [
+					cont,
+					sentance,
+					timeRef + " - " + timeArray[i].time.end,
+				];
+				timeRef = timeArray[i].time.end;
+				sentance = "";
+				cont++;
+			}
+		}
+
+		return retArray;
+	}
 
 	function ajaxChangeView(content) {
 		$.ajax({
@@ -8,9 +33,12 @@
 			url: "/partial",
 			dataType: "HTML",
 			success: function (res) {
-				//#appBody
 				$("#appBody").html(res);
-				//console.log(res);
+				table = $("#tblTranscript").DataTable({
+					language: {
+						emptyTable: "<b>Esperando Transcripcion</b>",
+					},
+				});
 			},
 			error: function () {
 				console.log("error view");
@@ -25,8 +53,18 @@
 			data: datos,
 			dataType: "json",
 			success: function (response) {
-				$("#txtTranscript").text(response.message);
-				console.log(response.message);
+				//$("#txtTranscript").text(response.data.transcript);
+				$("#tblTranscript").DataTable().clear().destroy();
+				let arrTranscript = groupTimestamps(response.data.timestamps, 5);
+				$("#tblTranscript").DataTable({
+					data: arrTranscript,
+					columns: [
+						{ title: "Seccion" },
+						{ title: "Transcripcion" },
+
+						{ title: "Timestamp" },
+					],
+				});
 			},
 			error: function () {
 				console.log("error");
@@ -67,7 +105,7 @@
 	}
 
 	function setEvents() {
-		$("#testBtn").click(() => {
+		$("#btnTest").click(() => {
 			ajaxChangeView();
 		});
 		$("#audioUpload").change(function () {
@@ -104,7 +142,9 @@
 			let text = ajaxMandarTranscripcion("archivo/mandaTranscripcion", {
 				filename: currentFile,
 			});
-			"#btnExportar".click(() => {});
+			$("#btnExportar").click(() => {
+				console.log("another");
+			});
 			console.log(text);
 		});
 	}

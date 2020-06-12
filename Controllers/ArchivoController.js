@@ -3,9 +3,8 @@ const router = express.Router();
 const multer = require("multer");
 const path = require("path");
 const bodyParser = require("body-parser");
-//const cloudUpload = require("./helpers/gcp-helper");
 const sysUploader = require("./helpers/sys_gcp_upload");
-const speechHelper = require("./helpers/google-speech-helper");
+const timestampHelper = require("./helpers/timestamp-speech-helper");
 let jsonParser = bodyParser.json();
 
 const almacena = multer.diskStorage({
@@ -59,9 +58,14 @@ router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 	//const {filename} = req.body;
 	//console.log("On Server data: " + req.body.filename);
 	console.log(req.body.filename);
+	/*
 	speechHelper
 		.transcribe(req.body.filename)
 		.then((str) => res.json({ message: str }));
+		*/
+	timestampHelper
+		.transcribe(req.body.filename)
+		.then((gscData) => res.json({ data: gscData }));
 });
 
 router.get("/descargarTranscripcion", jsonParser, (req, res) => {});
