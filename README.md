@@ -26,12 +26,12 @@ Una vez que cuente con el proyecto en su maquina local puede seguir los siguient
 
 2. Abra la carpeta en una terminal del sistema
 
-3. Ejecute el archivo app.js con el comando node(ej. "node app.js")
+3. Ejecute el archivo app.js con el comando node(`node app.js`)
 
 4. Alternativamente puede ejecutar el el comando `npm init` para iniciar el servidor con **nodemon**
 
-5. Acceda a su servicor local desde su navegador de referencia, la app
-   estara corriendo en el puerto 3000 en **localhost:3000**
+5. Acceda a su servidor local desde su navegador de preferencia, la app
+   estará corriendo en el puerto 3000 en **localhost:3000**
 
 ### Nota
 
