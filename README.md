@@ -1,26 +1,27 @@
 # InterfazTranscriptor
 
-Esta aplicacion es la **Interfaz de transcripcion Automatica**
-desarrollada para que el usuario pueda subir archivos de audio y
-descargar la transcripcion en forma de un archivo.
+Esta aplicación es la **Interfaz de transcripción Automatica**
+desarrollada para que el usuario pueda subir archivos de audio, convertir los arvhivos a texto y
+descargar la transcripción en forma de un archivo JSON.
 
-Este proyecto esta siendo desarrollado para CentroGeo para utilizar los
-datos generados en proyectos futuros.
+Este proyecto esta siendo desarrollado para CentroGeo con el fin de utilizar
+los datos generados en proyectos futuros.
 
 ## Instalación
 
-Para poder correr el programa de transcipcion en su servidor local puede descargue una copia de los archivos o clone el repositorio.
-_Descarga directa:_ [Arichivo comprimido ZIP](https://github.com/Alexander0144/InterfazTranscriptor.git)
+Para poder correr la aplicación de transcipción en su servidor local, debe descargar una copia
+de los archivos en el repositorio o clonar el repositorio con el comando `git clone`.
+_Descarga directa:_ [Arichivo comprimido ZIP](https://github.com/Alexander0144/InterfazTranscriptor/archive/master.zip)
 
-Una ves descargados los archivos del programa entre a la carpeta raiz y ejecute el comando de Node.js `npm install`
+Una vez descargados los archivos del repositorio, entre a la carpeta raíz y ejecute el comando de Node.js `npm install`
 Esto instalara todas las dependencias del proyecto.
-El registro de las dependencias y la version del programa estan contenidas dentro del archivo `package.json`
+El registro de las dependencias y la versión del proyecto están contenidas dentro del archivo `package.json`
 
 En caso de no contar con Node.js instalado en su maquina local lo puede descargar de la [pagina oficial](https://nodejs.org/es/)
 
-## Pasos para ejecutar
+## Ejecución
 
-Una vez que cuente con el proyecto en su maquina local puede seguir los siguientes pasos:
+Una vez que cuente con el proyecto en su maquina local, puede seguir los siguientes pasos para ejecutar la aplicación:
 
 1. Entre en la carpeta raiz del proyecto
 
@@ -28,19 +29,18 @@ Una vez que cuente con el proyecto en su maquina local puede seguir los siguient
 
 3. Ejecute el archivo app.js con el comando node(`node app.js`)
 
-4. Alternativamente puede ejecutar el el comando `npm init` para iniciar el servidor con **nodemon**
+4. Alternativamente puede ejecutar el el comando `npm init` para iniciar el servidor con **[nodemon](https://nodemon.io/)**
 
-5. Acceda a su servidor local desde su navegador de preferencia, la app
-   estará corriendo en el puerto 3000 en **localhost:3000**
+5. Acceda a su servidor local desde su navegador de preferencia, la app estará corriendo en el puerto 3000 (**localhost:3000**)
 
 ### Nota
 
-Debe contar tambien con el cliente de google cloud plataform para poder
+Debe contar con el cliente de google cloud plataform para poder
 correr la aplicación en su maquina local
 
 ## Formatos de archivo aceptados
 
-La aplicacion actualmente solo acepta archivos WAV con las siguientes caracteristicas:
+La aplicación actualmente solo acepta archivos WAV con las siguientes especificaciones:
 
 - Tipo de muestreo: 16-bit PCM
 

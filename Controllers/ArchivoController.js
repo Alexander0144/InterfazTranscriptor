@@ -2,10 +2,14 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const process = require("process");
 const bodyParser = require("body-parser");
 const sysUploader = require("./helpers/sys_gcp_upload");
 const timestampHelper = require("./helpers/timestamp-speech-helper");
+const fileDownload = require("./helpers/file-creation-helper");
+
 let jsonParser = bodyParser.json();
+let auxFile = "";
 
 const almacena = multer.diskStorage({
 	destination: function (req, file, callback) {
@@ -55,19 +59,26 @@ router.post("/carga", (req, res) => {
 });
 
 router.post("/mandaTranscripcion", jsonParser, (req, res) => {
-	//const {filename} = req.body;
-	//console.log("On Server data: " + req.body.filename);
-	console.log(req.body.filename);
-	/*
-	speechHelper
-		.transcribe(req.body.filename)
-		.then((str) => res.json({ message: str }));
-		*/
+	console.log("On server" + req.body.filename);
 	timestampHelper
 		.transcribe(req.body.filename)
 		.then((gscData) => res.json({ data: gscData }));
 });
 
-router.get("/descargarTranscripcion", jsonParser, (req, res) => {});
+router.post("/generaTranscripcion", jsonParser, (req, res) => {
+	let name = req.body.fileName;
+	//console.log(name);
+	const file = fileDownload.createFile(req.body.text, req.body.fileName);
+	//res.download(process.cwd() + "/Public/" + file);
+	//auxFile = name + ".json";
+	res.json({ message: name });
+	//res.redirect("/archivo/downloadFile?fileName=" + name);
+});
+
+router.get("/downloadFile/:name", (req, res) => {
+	let data = req.params.name;
+	//console.log(data);
+	res.download(process.cwd() + "/Public/" + data + ".json");
+});
 
 module.exports = router;

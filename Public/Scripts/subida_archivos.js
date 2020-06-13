@@ -4,6 +4,34 @@
 	let table = null;
 	let separationOption = 0;
 
+	function ajaxDescargarArchivo(fileData) {
+		$.ajax({
+			type: "POST",
+			url: "./archivo/generaTranscripcion",
+			data: fileData,
+			dataType: "json",
+			success: function (res) {
+				window.location.href = "/archivo/downloadFile/" + res.message;
+			},
+			error: function () {
+				console.log("error en descarga");
+			},
+		});
+	}
+
+	function tableDataToJson(tableData, iRows, jColumns) {
+		let tableJson = {};
+		for (let i = 0; i < iRows; i++) {
+			let rowJson = {};
+			for (let j = 0; j < jColumns; j++) {
+				let index = j + 1;
+				rowJson["columna" + index] = tableData[i][j];
+			}
+			tableJson["fila" + i] = rowJson;
+		}
+		return tableJson;
+	}
+
 	function groupTimestamps(timeArray, groupEvery) {
 		let retArray = [];
 		let timeRef = 0.0;
@@ -27,7 +55,7 @@
 		return retArray;
 	}
 
-	function ajaxChangeView(content) {
+	function ajaxChangeView() {
 		$.ajax({
 			type: "GET",
 			url: "/partial",
@@ -56,7 +84,7 @@
 				//$("#txtTranscript").text(response.data.transcript);
 				$("#tblTranscript").DataTable().clear().destroy();
 				let arrTranscript = groupTimestamps(response.data.timestamps, 5);
-				$("#tblTranscript").DataTable({
+				table = $("#tblTranscript").DataTable({
 					data: arrTranscript,
 					columns: [
 						{ title: "Seccion" },
@@ -64,6 +92,17 @@
 
 						{ title: "Timestamp" },
 					],
+				});
+				$("#btnExportar").click(() => {
+					let obj = tableDataToJson(
+						table.rows().data(),
+						table.rows().count(),
+						table.columns().count()
+					);
+					ajaxDescargarArchivo({
+						text: obj,
+						fileName: currentFile.split(".")[0],
+					});
 				});
 			},
 			error: function () {
@@ -142,10 +181,6 @@
 			let text = ajaxMandarTranscripcion("archivo/mandaTranscripcion", {
 				filename: currentFile,
 			});
-			$("#btnExportar").click(() => {
-				console.log("another");
-			});
-			console.log(text);
 		});
 	}
 
