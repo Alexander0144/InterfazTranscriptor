@@ -2,7 +2,7 @@
 const speech = require("@google-cloud/speech");
 
 /***
- * Funcion que transcribe un archivo almacenado en Google Cloud
+ * Funcion que transcribe un archivo almacenado en Google Clouds
  * recibe el nombre de un archivo almacenado en un bucket de google cloud
  * retorna un json con la transcripcion y los timestamps de esta
  * @param {string} filename nombre de un archivo almacenado en Google Cloud
@@ -17,6 +17,8 @@ module.exports.transcribe = async function transcribe(filename) {
 	const encoding = "LINEAR16";
 	const sampleRateHertz = 16000;
 	const languageCode = "es-MX";
+
+	//Objetos con opciones de configuracion de la API
 
 	const config = {
 		enableWordTimeOffsets: true,
@@ -34,10 +36,10 @@ module.exports.transcribe = async function transcribe(filename) {
 		audio: audio,
 	};
 
-	// Detects speech in the audio file. This creates a recognition job that you
-	// can wait for now, or get its result later.
+	// En esta seccion se detecta el habla en el archivo de audio subido
+	// La variable espera una respuesta de la operacion asincrona
 	const [operation] = await client.longRunningRecognize(request);
-	// Get a Promise representation of the final result of the job
+	// Se obtiene una promesa de javascript que representa el resultado final
 	const [response] = await operation.promise();
 	const transcription = response.results
 		.map((result) => result.alternatives[0].transcript)
@@ -45,8 +47,8 @@ module.exports.transcribe = async function transcribe(filename) {
 	const ret2 = response.results.forEach((result) => {
 		transcript = result.alternatives[0].transcript;
 		result.alternatives[0].words.forEach((wordInfo) => {
-			// NOTE: If you have a time offset exceeding 2^32 seconds, use the
-			// wordInfo.{x}Time.seconds.high to calculate seconds.
+			// Por cada palabra de la transcripcion se calculan
+			//Los tiempos de inicio y fin
 			const startSecs =
 				`${wordInfo.startTime.seconds}` +
 				"." +
@@ -55,6 +57,7 @@ module.exports.transcribe = async function transcribe(filename) {
 				`${wordInfo.endTime.seconds}` +
 				"." +
 				wordInfo.endTime.nanos / 100000000;
+			//Cada palabra con sus respectivos tiempos se almacena dentro del arreclo timestamps
 			timestamps[timestamps.length] = {
 				word: wordInfo.word,
 				time: {

@@ -47,3 +47,17 @@ nav {
 button:disabled {
 	cursor: auto;
 }
+
+tr:hover {
+	background-color: lightblue;
+}
+
+.activeRow {
+	background-color: #126a8a;
+	color: white;
+}
+
+.activeRow:hover {
+	background-color: #169aca;
+	color: white;
+}

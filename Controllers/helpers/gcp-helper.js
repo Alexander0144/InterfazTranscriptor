@@ -2,6 +2,7 @@
  * CODIGO PROBLEMATICO
  * CORROMPE ARCHIVOS AL SUBIRLOS A GOOGLE CLOUD
  * REPARACION PENDIENTE
+ * En su lugar se utliliza el modulo: sys_gcp_upload.js
  */
 
 const { Storage } = require("@google-cloud/storage");

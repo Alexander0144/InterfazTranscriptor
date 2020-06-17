@@ -2,11 +2,10 @@
 	<h4 class="display-4 text-dark"><strong>Transcriptor</strong></h4>
 
 	<div class="container">
-		<h5><span class="badge badge-success">Sin Editar</span></h5>
-		<table
-			id="tblTranscript"
-			class="table table-light table-striped table-bordered table-hover"
-		>
+		<h5>
+			<span id="lblEstatusEdicion" class="badge badge-success">Sin Editar</span>
+		</h5>
+		<table id="tblTranscript" class="table table-light table-bordered">
 			<thead>
 				<tr>
 					<th scope="col">
@@ -26,6 +25,61 @@
 
 	<br />
 	<br />
+	<button id="btnEditar" class="btn btn-secondary">
+		Editar
+	</button>
+	<br />
+	<button id="btnExportar" class="btn btn-primary mt-3">Exportar</button>
+	<br />
 
-	<button id="btnExportar" class="btn btn-primary">Exportar</button>
+	<div class="container">
+		<div
+			class="modal fade"
+			id="modalEditar"
+			tabindex="-1"
+			role="dialog"
+			aria-labelledby="exampleModalLabel"
+			aria-hidden="true"
+		>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Editar Segmento</h5>
+						<button
+							type="button"
+							class="close"
+							data-dismiss="modal"
+							aria-label="Close"
+						>
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<input
+							id="textoModalEditar"
+							type="text"
+							value=""
+							placeholder="texto a editar"
+						/>
+					</div>
+					<div class="modal-footer">
+						<button
+							type="button"
+							class="btn btn-secondary"
+							data-dismiss="modal"
+						>
+							Cancelar
+						</button>
+						<button
+							id="btnGuardarEdicion"
+							type="button"
+							class="btn btn-primary"
+						>
+							Guardar
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

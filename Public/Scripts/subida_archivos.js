@@ -93,6 +93,23 @@
 						{ title: "Timestamp" },
 					],
 				});
+
+				$("#tblTranscript").on("click", "tbody tr", function () {
+					$("#tblTranscript tr").removeClass("activeRow");
+					$(this).addClass("activeRow");
+				});
+
+				$("#btnEditar").click((e) => {
+					e.preventDefault();
+					if ($(".activeRow").length) {
+						let a = $(".activeRow").find("td:eq(1)").text();
+						$("#textoModalEditar").val(a);
+						$("#modalEditar").modal("show");
+					} else {
+						window.alert("Seleccione un Segmento a editar");
+					}
+				});
+
 				$("#btnExportar").click(() => {
 					let obj = tableDataToJson(
 						table.rows().data(),
