@@ -66,9 +66,11 @@ router.post("/carga", (req, res) => {
 		} else if (err) {
 			res.json({ message: "Ha oocurrido un error" });
 		} else {
-			//cloudUpload.uploadFile(req.file.filename).catch(console.error);
-			sysUploader.cliUpload(req.file.filename);
-			res.json({ message: req.file.filename });
+			sysUploader.cliUpload(req.file.filename).then((result) => {
+				if (result == "success: uploaded") {
+					res.json({ message: req.file.filename });
+				}
+			});
 		}
 	});
 });
@@ -83,7 +85,10 @@ router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 	console.log("On server" + req.body.filename);
 	timestampHelper
 		.transcribe(req.body.filename)
-		.then((gscData) => res.json({ data: gscData }));
+		.then((gscData) => res.json({ data: gscData }))
+		.catch((err) => {
+			console.log(err);
+		});
 });
 
 /***

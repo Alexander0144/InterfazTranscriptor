@@ -67,5 +67,5 @@ module.exports.transcribe = async function transcribe(filename) {
 			};
 		});
 	});
-	return { transcript: transcript, timestamps: timestamps };
+	return { transcript: transcript, timestamps: timestamps }; //Se retorna la transcripcion con timestamps
 };

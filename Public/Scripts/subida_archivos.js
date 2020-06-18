@@ -197,13 +197,13 @@
 		});
 
 		$("#audioUpload").submit(function () {
+			$("#modalArchivo").modal("hide");
 			$(this).ajaxSubmit({
 				error: function (err) {
 					status("Error: " + err);
 					btnTranscribir({ isActive: false });
 				},
 				success: function (res) {
-					$("#modalArchivo").modal("hide");
 					console.log(res.message);
 					currentFile = res.message;
 					uploadedFiles[uploadedFiles.length] = currentFile;
