@@ -15,6 +15,10 @@
 			rel="stylesheet"
 			href="/Public/Libraries/lib_css/datatables.min.css"
 		/>
+		<link
+			rel="stylesheet"
+			href="/Public/Libraries/lib_css/sweetalert2.min.css"
+		/>
 
 		<title>Transcriptor</title>
 	</head>
@@ -49,11 +53,11 @@
 				data-toggle="modal"
 				data-target="#modalArchivo"
 			>
-				Subir Archivos
+				<i class="fas fa-file-upload mr-1"></i>Subir Archivos
 			</button>
 			<br />
 			<button id="btnTranscribir" class="btn btn-primary disabled" disabled>
-				<i class="fas fa-file-upload mr-1"></i>Transcribir
+				<i class="fas fa-align-center"></i>Transcribir
 			</button>
 			<br />
 			<!-- Modal de subida de archivos-->
@@ -130,6 +134,7 @@
 		<script src="/Public/Libraries/lib_js/jquery.form.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js"></script>
 		<script src="/Public/Libraries/lib_js/datatables.min.js"></script>
+		<script src="/Public/Libraries/lib_js/sweetalert2.min.js"></script>
 		<script src="/Public/Libraries/lib_js/progressor.min.js"></script>
 		<script src="/Public/Scripts/subida_archivos.js"></script>
 	</body>

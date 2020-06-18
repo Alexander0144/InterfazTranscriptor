@@ -4,14 +4,18 @@
 	let table = null;
 	let separationOption = 0;
 
-	function ajaxDescargarArchivo(fileData) {
+	function ajaxGeneraArchivo(fileData) {
 		$.ajax({
 			type: "POST",
 			url: "./archivo/generaTranscripcion",
 			data: fileData,
 			dataType: "json",
 			success: function (res) {
-				window.location.href = "/archivo/downloadFile/" + res.message;
+				$("#btnLinkDescarga").attr(
+					"href",
+					"/archivo/downloadFile/" + res.message
+				);
+				$("#btnLinkDescarga").removeClass("disabled");
 			},
 			error: function () {
 				console.log("error en descarga");
@@ -95,10 +99,16 @@
 				});
 
 				$("#tblTranscript").on("click", "tbody tr", function () {
-					$("#tblTranscript tr").removeClass("activeRow");
-					$(this).addClass("activeRow");
+					if ($(this).hasClass("activeRow")) {
+						$(this).removeClass("activeRow");
+					} else {
+						$("#tblTranscript tr").removeClass("activeRow");
+						$(this).addClass("activeRow");
+					}
 				});
 
+				$("#btnEditar").removeClass("disabled");
+				$("#btnExportar").removeClass("disabled");
 				$("#btnEditar").click((e) => {
 					e.preventDefault();
 					if ($(".activeRow").length) {
@@ -106,8 +116,24 @@
 						$("#textoModalEditar").val(a);
 						$("#modalEditar").modal("show");
 					} else {
-						window.alert("Seleccione un Segmento a editar");
+						Swal.fire({
+							icon: "info",
+							title: "Sin seleccion",
+							text: "Por favor sleccione un segmento para editar",
+						});
+						//window.alert("Seleccione un Segmento a editar");
 					}
+				});
+
+				$("#btnGuardarEdicion").click((e) => {
+					e.preventDefault();
+					let rowIndex = parseInt($(".activeRow").find("td:eq(0)").text());
+					table.cell(rowIndex, 1).data($("#textoModalEditar").val()).draw();
+					//$(".activeRow").find("td:eq(1)").text($("#textoModalEditar").val());
+					//badge-warning badge-success
+					$("#lblEstatusEdicion").attr("class", "badge badge-warning");
+					$("#lblEstatusEdicion").text("Segmento Editado");
+					$("#modalEditar").modal("hide");
 				});
 
 				$("#btnExportar").click(() => {
@@ -116,7 +142,7 @@
 						table.rows().count(),
 						table.columns().count()
 					);
-					ajaxDescargarArchivo({
+					ajaxGeneraArchivo({
 						text: obj,
 						fileName: currentFile.split(".")[0],
 					});

@@ -48,7 +48,11 @@ button:disabled {
 	cursor: auto;
 }
 
-tr:hover {
+.disabled {
+	cursor: auto;
+}
+
+tbody tr:hover {
 	background-color: lightblue;
 }
 

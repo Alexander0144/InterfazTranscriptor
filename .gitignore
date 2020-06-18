@@ -1,3 +1,5 @@
+#se excluyen los modulos locales del programa
 node_modules
 .git
-Public/Uploads/*
+#se excluyen los archivos de audio subidos
+*.wav

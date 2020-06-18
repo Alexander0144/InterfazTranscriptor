@@ -25,13 +25,18 @@
 
 	<br />
 	<br />
-	<button id="btnEditar" class="btn btn-secondary">
+	<button id="btnEditar" class="btn btn-secondary disabled">
 		Editar
 	</button>
 	<br />
-	<button id="btnExportar" class="btn btn-primary mt-3">Exportar</button>
+	<button id="btnExportar" class="btn btn-primary disabled mt-3">
+		Generar Archivo
+	</button>
 	<br />
 
+	<a id="btnLinkDescarga" href="#" class="btn btn-info disabled mt-3"
+		>Descargar Transcripcion</a
+	>
 	<div class="container">
 		<div
 			class="modal fade"
@@ -61,6 +66,13 @@
 							value=""
 							placeholder="texto a editar"
 						/>
+						<br />
+						<p>
+							<em
+								><strong>Nota: </strong>Despues de guardar los cambios tendra
+								que volver a generar el archivo antes de exportarlo</em
+							>
+						</p>
 					</div>
 					<div class="modal-footer">
 						<button
