@@ -1,95 +1,94 @@
 <div class="container mt-2">
 	<h4 class="display-4 text-dark"><strong>Transcriptor</strong></h4>
+</div>
 
-	<div class="container">
-		<h5>
-			<span id="lblEstatusEdicion" class="badge badge-success">Sin Editar</span>
-		</h5>
-		<table id="tblTranscript" class="table table-light table-bordered">
-			<thead>
-				<tr>
-					<th scope="col">
-						Seccion
-					</th>
-					<th scope="col">
-						Transcripcion
-					</th>
-					<th scope="col">
-						Timestamp
-					</th>
-				</tr>
-			</thead>
-			<tbody></tbody>
-		</table>
-	</div>
-
-	<br />
-	<br />
-	<button id="btnEditar" class="btn btn-secondary disabled">
-		Editar
-	</button>
-	<br />
-	<button id="btnExportar" class="btn btn-primary disabled mt-3">
-		Generar Archivo
-	</button>
-	<br />
-
-	<a id="btnLinkDescarga" href="#" class="btn btn-info disabled mt-3"
-		>Descargar Transcripcion</a
+<div class="container">
+	<h5>
+		<span id="lblEstatusEdicion" class="badge badge-success">Sin Editar</span>
+	</h5>
+	<div
+		id="divBotones"
+		class="d-flex flex-row bd-highlight mb-3 justify-content-center"
 	>
-	<div class="container">
-		<div
-			class="modal fade"
-			id="modalEditar"
-			tabindex="-1"
-			role="dialog"
-			aria-labelledby="exampleModalLabel"
-			aria-hidden="true"
-		>
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Editar Segmento</h5>
-						<button
-							type="button"
-							class="close"
-							data-dismiss="modal"
-							aria-label="Close"
+		<div class="p-2 bd-highlight">
+			<button id="btnEditar" class="btn btn-secondary disabled mt-2">
+				<i class="fas fa-edit"></i> Editar
+			</button>
+		</div>
+		<div class="p-2 bd-highlight">
+			<button id="btnExportar" class="btn btn-primary disabled mt-2">
+				<i class="fas fa-file-code"></i> Generar Archivo
+			</button>
+		</div>
+		<div class="p-2 bd-highlight">
+			<a id="btnLinkDescarga" href="#" class="btn btn-info disabled mt-2"
+				><i class="fas fa-download"></i> Descargar Transcripcion</a
+			>
+		</div>
+	</div>
+	<table id="tblTranscript" class="table table-light table-bordered">
+		<thead>
+			<tr>
+				<th scope="col">
+					Seccion
+				</th>
+				<th scope="col">
+					Transcripcion
+				</th>
+				<th scope="col">
+					Timestamp
+				</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+</div>
+<br />
+<br />
+<div class="container">
+	<div
+		class="modal fade"
+		id="modalEditar"
+		tabindex="-1"
+		role="dialog"
+		aria-labelledby="exampleModalLabel"
+		aria-hidden="true"
+	>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Editar Segmento</h5>
+					<button
+						type="button"
+						class="close"
+						data-dismiss="modal"
+						aria-label="Close"
+					>
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input
+						id="textoModalEditar"
+						type="text"
+						value=""
+						placeholder="texto a editar"
+					/>
+					<br />
+					<p>
+						<em
+							><strong>Nota: </strong>Despues de guardar los cambios tendra que
+							volver a generar el archivo antes de exportarlo</em
 						>
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<input
-							id="textoModalEditar"
-							type="text"
-							value=""
-							placeholder="texto a editar"
-						/>
-						<br />
-						<p>
-							<em
-								><strong>Nota: </strong>Despues de guardar los cambios tendra
-								que volver a generar el archivo antes de exportarlo</em
-							>
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button
-							type="button"
-							class="btn btn-secondary"
-							data-dismiss="modal"
-						>
-							Cancelar
-						</button>
-						<button
-							id="btnGuardarEdicion"
-							type="button"
-							class="btn btn-primary"
-						>
-							Guardar
-						</button>
-					</div>
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						Cancelar
+					</button>
+					<button id="btnGuardarEdicion" type="button" class="btn btn-primary">
+						Guardar
+					</button>
 				</div>
 			</div>
 		</div>

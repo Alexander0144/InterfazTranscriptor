@@ -3,8 +3,10 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
-//Se importa el controlador de rutas para peticiones HTTP
+//Se importa el controlador de rutas para peticiones HTTP relacionadas con archivos
 const routerArchivo = require("./Controllers/ArchivoController");
+
+app.disable("x-powered-by"); //se oculta informacion del servidor
 
 //Se define a bodu parser como el interprete de JSON por defecto
 app.use(bodyParser.urlencoded({ extended: true }));

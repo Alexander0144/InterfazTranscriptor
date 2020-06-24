@@ -1,4 +1,3 @@
-//Se importan las librerias a utilizar
 const fs = require("fs");
 const process = require("process");
 /***

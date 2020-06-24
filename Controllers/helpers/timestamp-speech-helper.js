@@ -1,4 +1,3 @@
-// se importa la libreria del cliente de transcripcion de Google
 const speech = require("@google-cloud/speech");
 
 /***
@@ -12,16 +11,16 @@ module.exports.transcribe = async function transcribe(filename) {
 	const client = new speech.SpeechClient();
 
 	let timestamps = [];
-	let transctipt = "";
-	const gcsUri = "gs://bucket-audio-test/" + filename;
-	const encoding = "LINEAR16";
-	const sampleRateHertz = 16000;
-	const languageCode = "es-MX";
+	let transcripcion = "";
+	const gcsUri = "gs://bucket-audio-test/" + filename; //ubicacion el archivo en google cloud
+	const encoding = "LINEAR16"; //Codificacion lineal de pulsos de 16 bits (para archivos de formato WAV)
+	const sampleRateHertz = 16000; //Frecuencia de muestreo del archivo de audio (Hz)
+	const languageCode = "es-MX"; //Idioma del aduio (Español Mexicano)
 
 	//Objetos con opciones de configuracion de la API
 
 	const config = {
-		enableWordTimeOffsets: true,
+		enableWordTimeOffsets: true, //habilita la generacion de timestamps por cada palabra
 		encoding: encoding,
 		sampleRateHertz: sampleRateHertz,
 		languageCode: languageCode,
@@ -44,8 +43,8 @@ module.exports.transcribe = async function transcribe(filename) {
 	const transcription = response.results
 		.map((result) => result.alternatives[0].transcript)
 		.join("\n");
-	const ret2 = response.results.forEach((result) => {
-		transcript = result.alternatives[0].transcript;
+	response.results.forEach((result) => {
+		transcripcion = result.alternatives[0].transcript;
 		result.alternatives[0].words.forEach((wordInfo) => {
 			// Por cada palabra de la transcripcion se calculan
 			//Los tiempos de inicio y fin
@@ -67,5 +66,5 @@ module.exports.transcribe = async function transcribe(filename) {
 			};
 		});
 	});
-	return { transcript: transcript, timestamps: timestamps }; //Se retorna la transcripcion con timestamps
+	return { transcript: transcripcion, timestamps: timestamps }; //Se retorna la transcripcion con timestamps
 };

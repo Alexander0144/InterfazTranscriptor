@@ -17,6 +17,17 @@ header {
 nav {
 	width: 100%;
 }
+
+.header {
+	overflow: hidden;
+}
+
+audio {
+	display: block;
+	border-radius: 20px;
+	margin: 0 auto;
+}
+
 .progressor {
 	width: 1000px;
 	height: 20px;
@@ -27,10 +38,15 @@ nav {
 	background: rgb(57, 57, 65);
 	background: linear-gradient(
 		90deg,
-		rgba(57, 57, 65, 1) 0%,
+		rgb(19, 19, 107) 0%,
 		rgba(9, 9, 121, 1) 53%,
 		rgba(0, 101, 247, 1) 100%
 	);
+	width: 97.5839%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	z-index: -1;
 }
 
 .modal-dialog {
@@ -42,6 +58,11 @@ nav {
 	z-index: 10040;
 	overflow: auto;
 	overflow-y: auto;
+}
+
+.custom-file-label::after {
+	content: "Buscar";
+	cursor: pointer;
 }
 
 button:disabled {

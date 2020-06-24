@@ -67,6 +67,7 @@ router.post("/carga", (req, res) => {
 			res.json({ message: "Ha oocurrido un error" });
 		} else {
 			sysUploader.cliUpload(req.file.filename).then((result) => {
+				console.log(result);
 				if (result == "success: uploaded") {
 					res.json({ message: req.file.filename });
 				}
@@ -82,7 +83,7 @@ router.post("/carga", (req, res) => {
  */
 
 router.post("/mandaTranscripcion", jsonParser, (req, res) => {
-	console.log("On server" + req.body.filename);
+	console.log("On server: " + req.body.filename);
 	timestampHelper
 		.transcribe(req.body.filename)
 		.then((gscData) => res.json({ data: gscData }))
@@ -93,7 +94,7 @@ router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 
 /***
  * Definicion de ruta que genera el archivo JSON
- * que contiene los datos de la transcripcion generada
+ * con los datos de la transcripcion generada
  * Utiliza el analizador jsonParser para obtener el nombre del archivo a generar
  */
 
