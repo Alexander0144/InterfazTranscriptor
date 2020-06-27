@@ -1,4 +1,3 @@
-//Se importan las librerias requeridas
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
@@ -60,20 +59,28 @@ const carga = multer(multerConf).single("archivo");
  * El archivo se manda desde el cliente a traves del metodo POST
  */
 router.post("/carga", (req, res) => {
+	console.log(req.url);
 	carga(req, res, function (err) {
 		if (err instanceof multer.MulterError) {
-			res.json({ message: "Error en la carga de archivos" });
+			return res.json.bind(res)({ message: "Error en la carga de archivos" });
+			//res.json({ message: "Error en la carga de archivos" });
 		} else if (err) {
-			res.json({ message: "Ha oocurrido un error" });
+			return res.json.bind(res)({ message: "Ha oocurrido un error" });
+			//res.json();
 		} else {
 			sysUploader.cliUpload(req.file.filename).then((result) => {
 				console.log(result);
 				if (result == "success: uploaded") {
-					res.json({ message: req.file.filename });
+					return res.json.bind(res)({ message: req.file.filename });
+					//res.json({ message: req.file.filename });
+				} else {
+					return res.json.bind(res)({ message: "error cli" });
+					//res.json("error cli");
 				}
 			});
 		}
 	});
+	res.status(200);
 });
 
 /***
@@ -86,9 +93,10 @@ router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 	console.log("On server: " + req.body.filename);
 	timestampHelper
 		.transcribe(req.body.filename)
-		.then((gscData) => res.json({ data: gscData }))
+		.then((gscData) => res.json.bind(res)({ data: gscData }))
 		.catch((err) => {
 			console.log(err);
+			res.status(500);
 		});
 });
 

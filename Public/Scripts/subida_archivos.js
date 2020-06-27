@@ -1,9 +1,27 @@
 (function ($) {
+	//arhcivo actual que se carga al servidor
 	let currentFile = "";
+	//conjunto de todos los archivos cargados
+	//se usara para futura implementacion de carga de multiples
+	//archivos
 	let uploadedFiles = [];
+	//objeto que representa la tabla de datos de DataTables
+	//se crea una instancia al cambiar a la vista parcial de transcripcion
 	let table = null;
+	//criterio de agrupacion de palabras de la transcripcion
+	//en segmentos
 	let separationOption = 0;
 
+	/**
+	 * Función que manda una peticion HTTP a traves de AJAX
+	 * para transcribir el archivo cargado en la interfaz
+	 *
+	 * Recibe dos parametros:
+	 * @param {string} url la direccion del servicio web que llama a la API de transcripcion de Google Cloud
+	 * @param {object} datos objeto que contiene el nombre del archivo en Google Cloud a transcribir
+	 *
+	 * El arhcivo que se manda a transcribir se carga a Google Cloud a la hora de subir un archivo al servidor
+	 */
 	function ajaxMandarTranscripcion(url, datos) {
 		$.ajax({
 			type: "POST",
@@ -20,6 +38,12 @@
 		});
 	}
 
+	/**
+	 *Función AJAX (Peticion HTTP) que obtiene el html
+	 *de la vita parcial de resultados de transcricpión (donde se encuentra la tabla)
+	 *e inserta la vista en el <div> contenedor "appBody"
+	 *no recibe ningún parametro y no retorna ningún valor
+	 */
 	function ajaxChangeView() {
 		$.ajax({
 			type: "GET",
@@ -39,6 +63,14 @@
 		});
 	}
 
+	/**
+	 * La función agregaReproductor inserta en la interfaz
+	 * los elementos del DOM requeridos por el constrctor "Progressor"
+	 * para crear una instancia de la barra de reproducción del player
+	 *
+	 * Recibe un parametro:
+	 * @param {string} src direccion del archivo de aucio cargado (actualmente en el servidor)
+	 */
 	function agregaReproductor(src) {
 		$("#playerDiv").find("audio").remove();
 		$("#playerDiv").find("div").remove();
@@ -55,6 +87,14 @@
 		);
 	}
 
+	/**
+	 * Esta función cambia el estado del boton "Transcribir"
+	 * a activo o inactivo deṕendiendo del objeto de estado que se le pase
+	 *
+	 * Recibe un parametro:
+	 * @param {object} estado objeto que representa el estado activo o inactivo del boton
+	 * contiene un valor booleano
+	 */
 	function asignaEstadoBotonTranscribir(estado) {
 		if (estado.isActive) {
 			$("#btnTranscribir").removeAttr("disabled");
@@ -65,6 +105,11 @@
 		}
 	}
 
+	/**
+	 * La funcióm "creaReproductor" crea un nuevo objeto
+	 * tipo Progressor que crea la barra de reproduccion principal
+	 * en la ventana
+	 */
 	function creaReproductor() {
 		let jqProgressBar = new Progressor({
 			media: $("audio")[0],
@@ -72,6 +117,14 @@
 		});
 	}
 
+	/**
+	 * Función que asigna los manejadores de eventos a los botones
+	 * de la vista principal de la aplicacion (carga de archivos o Index)
+	 *
+	 * No recibe parametros y no retorna ningun valor
+	 *
+	 * Es ejecutada al cargar la pagina
+	 */
 	function asignaEventosCarga() {
 		$("#audioUpload").change(function () {
 			let filename = $("#archivo")[0].files[0].name;
@@ -85,6 +138,7 @@
 			$("label[for='archivo']").text("Seleccione un archivo");
 		});
 
+		//Evento "submit" del formularo de carga de archivos
 		$("#audioUpload").submit(function () {
 			$("#modalArchivo").modal("hide");
 			$("label[for='archivo']").text("Seleccione un archivo");
@@ -94,8 +148,10 @@
 					asignaEstadoBotonTranscribir({ isActive: false });
 				},
 				success: function (res) {
+					//Posibles mensajes de error que manda el servidor
 					const ERRMSG_1 = "Error en la carga de archivos";
 					const ERRMSG_2 = "Ha oocurrido un error";
+
 					if (res.message == ERRMSG_1 || res.message == ERRMSG_2) {
 						Swal.fire(
 							"Formato no compatible",
@@ -132,6 +188,8 @@
 		});
 	}
 
+	//Inicio de la ejecucion del programa
+	//Asignacion inicial de eventos al cargar la pagina
 	$(document).ready(function () {
 		asignaEventosCarga();
 	});

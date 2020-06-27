@@ -101,7 +101,10 @@ function asignaEventosBotnesTranscripcion(currentFile, table) {
 	$("#btnGuardarEdicion").click((e) => {
 		e.preventDefault();
 		let rowIndex = parseInt($(".activeRow").find("td:eq(0)").text());
-		table.cell(rowIndex, 1).data($("#textoModalEditar").val()).draw();
+		table
+			.cell(rowIndex - 1, 1)
+			.data($("#textoModalEditar").val())
+			.draw();
 		$("#lblEstatusEdicion").attr("class", "badge badge-warning");
 		$("#lblEstatusEdicion").text("Segmento Editado");
 		$("#modalEditar").modal("hide");
@@ -154,23 +157,28 @@ function tableDataToJson(tableData, iRows, jColumns) {
  */
 function groupTimestamps(timeArray, groupEvery) {
 	let retArray = [];
-	let timeRef = 0.0;
+	let timeStamp = "";
+	let segment = [];
 	let sentance = "";
-	let cont = 0;
 
-	for (let i = 0; i < timeArray.length; i++) {
-		sentance += " " + timeArray[i].word;
-		if (i % groupEvery == 0) {
-			retArray[cont] = [
-				cont,
-				sentance,
-				timeRef + " - " + timeArray[i].time.end,
-			];
-			timeRef = timeArray[i].time.end;
-			sentance = "";
-			cont++;
+	for (let i = 0; i < timeArray.length; i += groupEvery) {
+		if (i + groupEvery < timeArray.length) {
+			segment = timeArray.slice(i, i + groupEvery);
+		} else {
+			segment = timeArray.slice(i, timeArray.length);
 		}
+		timeStamp =
+			String(segment[0].time.start).split(".").join(":") +
+			" - " +
+			String(segment[segment.length - 1].time.end)
+				.split(".")
+				.join(":");
+		sentance = segment
+			.map((elem) => {
+				return elem.word;
+			})
+			.join(" ");
+		retArray[retArray.length] = [retArray.length + 1, sentance, timeStamp];
 	}
-
 	return retArray;
 }

@@ -1,4 +1,3 @@
-//Se importan las librerias requeridas
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -38,8 +37,8 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 //Definicion de puerto para la aplicacion
-const puerto = process.env.PORT || 3000;
-app.listen(puerto, () => {
+const puerto = process.env.PORT || 4000;
+app.listen(puerto, "0.0.0.0", () => {
 	console.log(
 		`Servidor escuchand en el puerto ${puerto}\nPresione Ctrl+C para terminar el proceso...`
 	);
