@@ -31,7 +31,7 @@ Una vez que cuente con el proyecto en su maquina local, puede seguir los siguien
 
 4. Alternativamente puede ejecutar el el comando `npm init` para iniciar el servidor con **[nodemon](https://nodemon.io/)**
 
-5. Acceda a su servidor local desde su navegador de preferencia, la app estará corriendo en el puerto 3000 (**localhost:3000**)
+5. Acceda a su servidor local desde su navegador de preferencia, la app estará corriendo en el puerto 4000 (**localhost:4000**)
 
 ### Nota
 
