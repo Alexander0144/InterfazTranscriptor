@@ -107,6 +107,8 @@ function asignaEventosBotnesTranscripcion(currentFile, table) {
 			.draw();
 		$("#lblEstatusEdicion").attr("class", "badge badge-warning");
 		$("#lblEstatusEdicion").text("Segmento Editado");
+		$("#btnLinkDescarga").addClass("disabled");
+		$("#btnTranscribir").attr("href", "#");
 		$("#modalEditar").modal("hide");
 	});
 
@@ -139,10 +141,15 @@ function tableDataToJson(tableData, iRows, jColumns) {
 	for (let i = 0; i < iRows; i++) {
 		let rowJson = {};
 		for (let j = 0; j < jColumns; j++) {
-			let index = j + 1;
-			rowJson["columna" + index] = tableData[i][j];
+			if (j == 0) {
+				rowJson["_id"] = tableData[i][j];
+			} else if (j == 1) {
+				rowJson["Texto"] = tableData[i][j];
+			} else {
+				rowJson["TimeStamp"] = tableData[i][j];
+			}
 		}
-		tableJson["fila" + i] = rowJson;
+		tableJson["segmento_" + i] = rowJson;
 	}
 	return tableJson;
 }
