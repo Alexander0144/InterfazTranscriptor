@@ -1,9 +1,9 @@
 # Transcriptor
 
-Este proyecto es una aplicacion que esta siendo desarrolloada para el _Centro de Investigación
+Este proyecto es una aplicación que esta siendo desarrolloada para el _Centro de Investigación
 en Ciencias de Información Geoespacial_, tambien conocido como **CentroGeo**, bajo el nombre de
 **_Interfaz de transcripción Automatica_**.
-La funcion principla de esta aplicación es el permitir al usuario subir archivos de audio, para poder
+La función principla de esta aplicación es el permitir al usuario subir archivos de audio, para poder
 convertirlos a texto y posteriormente descargar la transcripción en forma de un archivo **JSON**.
 
 Este **_Transcriptor_** esta siendo desarrollado para **CentroGeo** con el fin de utilizar
@@ -24,8 +24,8 @@ con las siguientes dependenicas instaladas:
 
 ## Instalacion de requerimientos
 
-La instalación de las dependendias del sistema para poder correr la aplicación, se
-llevan a cabo a traves de la terminal. Para instalar **Node.js** junto con **npm** ejecute
+La instalación de las dependencias del sistema (necesarias para poder correr la aplicación), se
+lleva a cabo a traves de la terminal. Para instalar **Node.js** junto con **npm** ejecute
 las siguientes instrucciones en la linea de comandos:
 
 **Actualizacion de repositorios de apt**
@@ -42,8 +42,8 @@ $ sudo apt-get install nodejs
 $ sudo apt-get install npm
 ```
 
-La instalacion del SDK de Google Cloud se realiza a traves de la terminal utilizando el
-manejafor de paquetes "snap". Para instalar el paquete snap requerido ejecute el siguiente comando
+La instalacion del SDK de Google Cloud se realiza a traves de la terminal, utilizando el
+gestor de paquetes "snap". Para instalar el paquete snap requerido ejecute el siguiente comando:
 
 ```bash
 $ sudo snap install google-cloud-sdk --classic
