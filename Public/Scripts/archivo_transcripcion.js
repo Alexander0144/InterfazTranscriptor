@@ -45,9 +45,12 @@ function ajaxGeneraArchivo(fileData) {
  * @param {list} transcripcionConTiempos lista con las palabras de la transcripcion y los tiempos correspondientes
  * @returns {object} retorna la tabla generada
  */
-function llenaTablaTranscripcion(transcripcionConTiempos) {
+function llenaTablaTranscripcion(transcripcionConTiempos, palabrasPorSegmento) {
 	$("#tblTranscript").DataTable().clear().destroy(); //Se destruye la tabla vacia para generar una tabla con datos
-	let arrTranscript = groupTimestamps(transcripcionConTiempos, 5);
+	let arrTranscript = groupTimestamps(
+		transcripcionConTiempos,
+		palabrasPorSegmento
+	);
 	table = $("#tblTranscript").DataTable({
 		data: arrTranscript,
 		columns: [

@@ -16,7 +16,7 @@ module.exports.createFile = function createFile(
 	fileName
 ) {
 	let localFile = fileName + ".json";
-	let fileURl = process.cwd() + "/Public/" + localFile;
+	let fileURl = process.cwd() + "/Public/Export/" + localFile;
 	fs.writeFileSync(fileURl, JSON.stringify(jsonData), "utf8");
 	return localFile;
 };

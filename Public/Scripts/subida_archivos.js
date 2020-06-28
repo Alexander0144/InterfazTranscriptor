@@ -29,7 +29,11 @@
 			data: datos,
 			dataType: "json",
 			success: function (response) {
-				table = llenaTablaTranscripcion(response.data.timestamps);
+				console.log(separationOption);
+				table = llenaTablaTranscripcion(
+					response.data.timestamps,
+					separationOption
+				);
 				asignaEventosBotnesTranscripcion(currentFile, table);
 			},
 			error: function () {
@@ -181,6 +185,7 @@
 
 		$("#btnTranscribir").click(function (e) {
 			e.preventDefault();
+			separationOption = parseInt($("#selectPalabrasPorSegmento").val().trim());
 			ajaxChangeView();
 			let text = ajaxMandarTranscripcion("archivo/mandaTranscripcion", {
 				filename: currentFile,

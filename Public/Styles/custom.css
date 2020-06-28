@@ -60,6 +60,10 @@ audio {
 	overflow-y: auto;
 }
 
+#selectPalabrasPorSegmento {
+	width: 80px;
+}
+
 .custom-file-label::after {
 	content: "Buscar";
 	cursor: pointer;

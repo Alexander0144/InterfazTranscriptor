@@ -1,0 +1,6 @@
+# ingorar todos los archivos en este directorio
+*
+
+# A excepxion de este archvio en cuestion
+
+!.gitignore

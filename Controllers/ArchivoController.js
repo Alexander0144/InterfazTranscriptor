@@ -63,19 +63,15 @@ router.post("/carga", (req, res) => {
 	carga(req, res, function (err) {
 		if (err instanceof multer.MulterError) {
 			return res.json.bind(res)({ message: "Error en la carga de archivos" });
-			//res.json({ message: "Error en la carga de archivos" });
 		} else if (err) {
 			return res.json.bind(res)({ message: "Ha oocurrido un error" });
-			//res.json();
 		} else {
 			sysUploader.cliUpload(req.file.filename).then((result) => {
 				console.log(result);
 				if (result == "success: uploaded") {
 					return res.json.bind(res)({ message: req.file.filename });
-					//res.json({ message: req.file.filename });
 				} else {
 					return res.json.bind(res)({ message: "error cli" });
-					//res.json("error cli");
 				}
 			});
 		}
@@ -116,7 +112,7 @@ router.post("/generaTranscripcion", jsonParser, (req, res) => {
 //Del lado del cliente se llama la descarga por el metodo GET
 router.get("/downloadFile/:name", (req, res) => {
 	let data = req.params.name;
-	res.download(process.cwd() + "/Public/" + data + ".json");
+	res.download(process.cwd() + "/Public/Export/" + data + ".json");
 });
 
 /***
