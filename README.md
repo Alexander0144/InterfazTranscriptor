@@ -1,24 +1,24 @@
 # Transcriptor
 
-Este proyecto es una aplicacion que esta siendo desarrolloada para el _Centro de Investigación
-en Ciencias de Información Geoespacial_, tambien conocido como **CentroGeo**, bajo el nombre de
+Esta es una aplicación que esta siendo desarrolloada para el _Centro de Investigación en
+Ciencias de Información Geoespacial_ (tambien conocido como **CentroGeo**), bajo el nombre de
 **_Interfaz de transcripción Automatica_**.
-La funcion principla de esta aplicación es el permitir al usuario subir archivos de audio, para poder
-convertirlos a texto y posteriormente descargar la transcripción en forma de un archivo **JSON**.
+La funcion principal de esta aplicación es el permitir al usuario subir archivos de audio, para poder
+convertirlos a texto, y posteriormente descargar la transcripción en forma de un archivo **JSON**.
 
 Este **_Transcriptor_** esta siendo desarrollado para **CentroGeo** con el fin de utilizar
 los datos generados en proyectos futuros de Inteligencia Artificiál.
 
 ## Requerimientos
 
-Para poder ejecutar el servidro de la interfaz en su servidor local debera de contar
-con las siguientes dependenicas instaladas:
+Para poder ejecutar el servidor de la interfaz localmente debera de contar con las siguientes
+dependenicas instaladas en su equipo:
 
 - Sistema operativo Ubuntu
-- Interprete para el lenguaje de programacion Python
+- Interprete para el lenguaje de programación Python
   - Entre 3.5 y 3.7 para **Python 3**
   - Version 2.7.9 para **Python 2**
-- Entorno de ejecucuón de JavaScript **Node.js;** version 12.18.1 en adelante
+- Entorno de ejecución de JavaScript **Node.js;** version 12.18.1 en adelante
 - Manejador de paquetes **npm;** version 6.14.5 en adelante
 - SDK de Google Cloud
 
