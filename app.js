@@ -1,9 +1,15 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 const app = express();
 //Se importa el controlador de rutas para peticiones HTTP relacionadas con archivos
 const routerArchivo = require("./Controllers/ArchivoController");
+
+mongoose.connect("mongodb://localhost/transcripciones", {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+});
 
 app.disable("x-powered-by"); //se oculta informacion del servidor
 

@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
+const Segment = require("./segmentSchema");
 
 const mediaSchema = new mongoose.Schema({
-	__id: {
-		type: Number,
-		required: true,
-	},
 	mediaPath: {
 		type: String,
 		required: true,
@@ -26,9 +23,10 @@ const mediaSchema = new mongoose.Schema({
 		required: true,
 	},
 	sampleType: {
-		type: Number,
+		type: String,
 		required: true,
 	},
+	segmentos: [Segment],
 });
 
 module.exports = mongoose.model("Media", mediaSchema);

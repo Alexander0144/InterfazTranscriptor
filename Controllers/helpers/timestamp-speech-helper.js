@@ -68,3 +68,46 @@ module.exports.transcribe = async function transcribe(filename) {
 	});
 	return { transcript: transcripcion, timestamps: timestamps }; //Se retorna la transcripcion con timestamps
 };
+
+/**
+ * Función que agrupa las palabras de la transcripcion en segmentos
+ * cada uno con su tiempo de inicio y fin
+ *
+ * @param {list} timeArray arreglo de palabras con etiquetas de tiempo (inicio y fin)
+ * @param {number} groupEvery criterio de agrupacion (cuantas palabras contendra cada segmento)
+ * @returns {list} lista de segmentos agrupados con etiquetas de tiempo (inicio y fin)
+ */
+module.exports.groupTimestamps = function groupTimestamps(
+	timeArray,
+	groupEvery
+) {
+	let retArray = [];
+	let timeStamp = "";
+	let segment = [];
+	let sentance = "";
+
+	for (let i = 0; i < timeArray.length; i += groupEvery) {
+		if (i + groupEvery < timeArray.length) {
+			segment = timeArray.slice(i, i + groupEvery);
+		} else {
+			segment = timeArray.slice(i, timeArray.length);
+		}
+		timeStamp =
+			String(segment[0].time.start).split(".").join(":") +
+			" - " +
+			String(segment[segment.length - 1].time.end)
+				.split(".")
+				.join(":");
+		sentance = segment
+			.map((elem) => {
+				return elem.word;
+			})
+			.join(" ");
+		retArray[retArray.length] = [
+			String(retArray.length + 1),
+			sentance,
+			timeStamp,
+		];
+	}
+	return retArray;
+};

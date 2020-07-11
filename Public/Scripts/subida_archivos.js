@@ -29,11 +29,8 @@
 			data: datos,
 			dataType: "json",
 			success: function (response) {
-				console.log(separationOption);
-				table = llenaTablaTranscripcion(
-					response.data.timestamps,
-					separationOption
-				);
+				//console.log(separationOption);
+				table = llenaTablaTranscripcion(response.data);
 				asignaEventosBotnesTranscripcion(currentFile, table);
 			},
 			error: function () {
@@ -189,6 +186,7 @@
 			ajaxChangeView();
 			let text = ajaxMandarTranscripcion("archivo/mandaTranscripcion", {
 				filename: currentFile,
+				palabrasPorSegmento: separationOption,
 			});
 		});
 	}

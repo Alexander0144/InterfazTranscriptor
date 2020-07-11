@@ -10,6 +10,8 @@ const sysUploader = require("./helpers/sys_gcp_upload");
 const timestampHelper = require("./helpers/timestamp-speech-helper");
 const fileDownload = require("./helpers/file-creation-helper");
 
+const Media = require("../Models/mediaModel");
+
 //analiza los datos de entrada que se le mandan
 //a las rutas para poder tener acceso a ellos
 let jsonParser = bodyParser.json();
@@ -87,9 +89,40 @@ router.post("/carga", (req, res) => {
 
 router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 	console.log("On server: " + req.body.filename);
+	console.log(`Ẁords per segment: ${req.body.palabrasPorSegmento}`);
 	timestampHelper
 		.transcribe(req.body.filename)
-		.then((gscData) => res.json.bind(res)({ data: gscData }))
+		.then(async (gscData) => {
+			let segments = timestampHelper.groupTimestamps(
+				gscData.timestamps,
+				req.body.palabrasPorSegmento
+			);
+			console.log(JSON.stringify(segments));
+			let listaSegmentos = segments.map((seg) => {
+				return {
+					numero: seg[0],
+					texto: seg[1],
+					timeStamp: seg[2],
+				};
+			});
+			let datosArchivo = new Media({
+				mediaPath: "Public/Uploads/",
+				mediaSize: 20,
+				sampleRate: 4000, //uncertain
+				mediaFrequency: 1600,
+				mediaChannels: 1,
+				sampleType: "Cluster", //uncertain
+				segmentos: listaSegmentos,
+			});
+			try {
+				datosArchivo = await datosArchivo.save();
+			} catch (e) {
+				console.log(e);
+				console.log("Error al guardar");
+			} finally {
+				res.json.bind(res)({ data: segments });
+			}
+		})
 		.catch((err) => {
 			console.log(err);
 			res.status(500);
