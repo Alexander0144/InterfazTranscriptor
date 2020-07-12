@@ -4,6 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const process = require("process");
 const bodyParser = require("body-parser");
+const metadataGetter = require("music-metadata");
 //Se importan los modulos ayudantes para realizar
 //Funciones relacionadas con Google Cloud Plataform
 const sysUploader = require("./helpers/sys_gcp_upload");
@@ -17,6 +18,40 @@ const Media = require("../Models/mediaModel");
 let jsonParser = bodyParser.json();
 
 let auxFile = "";
+
+function guardaSegmentosMongo(segments, filename) {
+	let filePath = `${process.cwd()}/Public/Uploads/${filename}`;
+	let datosArchivo = {};
+	let listaSegmentos = segments.map((seg) => {
+		return {
+			numero: seg[0],
+			texto: seg[1],
+			timeStamp: seg[2],
+		};
+	});
+	metadataGetter
+		.parseFile(filePath)
+		.then(async (metadata) => {
+			datosArchivo = new Media({
+				mediaPath: filePath,
+				duration: metadata.format.duration,
+				sampleRate: metadata.format.sampleRate, //uncertain
+				mediaFrequency: metadata.format.sampleRate + "Hz",
+				mediaChannels: metadata.format.numberOfChannels,
+				codec: metadata.format.codec, //uncertain
+				segmentos: listaSegmentos,
+			});
+			try {
+				datosArchivo = await datosArchivo.save();
+			} catch (e) {
+				console.log(e);
+				console.log("Error al guardar");
+			}
+		})
+		.catch((e) => {
+			console.log(e.message);
+		});
+}
 
 //Objeto de configuracion de almacenamiento de multer
 //el objeto multer se usa para recibir y guardar archivos
@@ -92,36 +127,15 @@ router.post("/mandaTranscripcion", jsonParser, (req, res) => {
 	console.log(`Ẁords per segment: ${req.body.palabrasPorSegmento}`);
 	timestampHelper
 		.transcribe(req.body.filename)
-		.then(async (gscData) => {
+		.then((gscData) => {
 			let segments = timestampHelper.groupTimestamps(
 				gscData.timestamps,
 				req.body.palabrasPorSegmento
 			);
+
 			console.log(JSON.stringify(segments));
-			let listaSegmentos = segments.map((seg) => {
-				return {
-					numero: seg[0],
-					texto: seg[1],
-					timeStamp: seg[2],
-				};
-			});
-			let datosArchivo = new Media({
-				mediaPath: "Public/Uploads/",
-				mediaSize: 20,
-				sampleRate: 4000, //uncertain
-				mediaFrequency: 1600,
-				mediaChannels: 1,
-				sampleType: "Cluster", //uncertain
-				segmentos: listaSegmentos,
-			});
-			try {
-				datosArchivo = await datosArchivo.save();
-			} catch (e) {
-				console.log(e);
-				console.log("Error al guardar");
-			} finally {
-				res.json.bind(res)({ data: segments });
-			}
+			guardaSegmentosMongo(segments, req.body.filename);
+			res.json.bind(res)({ data: segments });
 		})
 		.catch((err) => {
 			console.log(err);

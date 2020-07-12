@@ -6,7 +6,7 @@ const mediaSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	mediaSize: {
+	duration: {
 		type: Number,
 		required: true,
 	},
@@ -15,14 +15,14 @@ const mediaSchema = new mongoose.Schema({
 		required: true,
 	},
 	mediaFrequency: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	mediaChannels: {
 		type: Number,
 		required: true,
 	},
-	sampleType: {
+	codec: {
 		type: String,
 		required: true,
 	},
